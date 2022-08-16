@@ -1,0 +1,54 @@
+In[1]:= IntPlus[J_,Jone_,Jtwo_,p_,z_Real] := NIntegrate[1/(8Pi)p*(Cos[k]-1)/(J^2-2J*Jtwo-z^2+2J(Jone*Cos[k]+2Jtwo*Cos[k]^2)),{k,-Pi,Pi}]
+In[9]:= NullsHolm[Jone_,Jtwo_,p_,z_] := 1+ 2*IntPlus[1,Jone,Jtwo,p,z]
+In[41]:= Lister[Plusminus_,Xstart_,StartIteration_,Jone_,p_] := Module[{lst={{Xstart,FindRoot[NullsHolm[Jone,Xstart,p,z],{z,StartIteration}]}}},
+Do[
+Jtwoo=Plusminus(n+1)*0.005;
+a= Check[FindRoot[NullsHolm[Jtwoo,z]==0,{z,z/.lst[[n,2]]}
+],z->0];
+AppendTo[lst,{Jtwoo,a}];
+,{n,1,19,1}
+];
+lst
+]
+In[4]:= moduler[list_] := Module[{lst := {}},
+Do [
+AppendTo [lst,{list[[n,1]],z/.list[[n,2]]}];
+,{n,1,20,1}
+];
+lst
+]
+In[8]:= Zero[J_,q_,l_] := Sqrt[-4 J^3 q+8J*q^2-2 J^3 l+4 J^2q*l+J^2 l^2]/Sqrt[-4J*q-2J*l]
+In[6]:= Fueger[lst1_,lst2_] := Module[{lst={}},
+Do[
+AppendTo[lst,lst1[[n]]]
+,{n,1,20,1}];
+Do[
+AppendTo[lst,lst2[[n]]]
+,{n,1,20,1}];
+lst
+]
+In[30]:= Verlauf[HowMany_,p_] := Module[{lst={}},
+For[i=0,i<HowMany,i++,
+AppendTo[lst,{1,i*0.1+0.1,p}];
+AppendTo[lst,Fueger[moduler[Lister[-1,-0.005,Zero[1,i*0.1+0.1,p],i*0.1+0.1,p]],moduler[Lister[1,0.005,Zero[1,i*0.1+0.1,p],i*0.1+0.1,p]]]]
+];
+l = lst
+]
+In[42]:= Verlauf[2,0.1]
+During evaluation of In[42]:= NIntegrate::slwcon: Numerical integration converging too slowly; suspect one of the following: singularity, value of the integration is 0, highly oscillatory integrand, or WorkingPrecision too small.
+During evaluation of In[42]:= NIntegrate::ncvb: NIntegrate failed to converge to prescribed accuracy after 9 recursive bisections in k near {k} = {3.108582793300152}. NIntegrate obtained 0.35867965138731184` and 3.206410741115182` for the integral and error estimates.
+During evaluation of In[42]:= NIntegrate::slwcon: Numerical integration converging too slowly; suspect one of the following: singularity, value of the integration is 0, highly oscillatory integrand, or WorkingPrecision too small.
+During evaluation of In[42]:= NIntegrate::ncvb: NIntegrate failed to converge to prescribed accuracy after 9 recursive bisections in k near {k} = {3.108582793300152}. NIntegrate obtained 0.35867965138731184` and 3.206410741115182` for the integral and error estimates.
+During evaluation of In[42]:= NIntegrate::slwcon: Numerical integration converging too slowly; suspect one of the following: singularity, value of the integration is 0, highly oscillatory integrand, or WorkingPrecision too small.
+During evaluation of In[42]:= General::stop: Further output of NIntegrate::slwcon will be suppressed during this calculation.
+During evaluation of In[42]:= NIntegrate::ncvb: NIntegrate failed to converge to prescribed accuracy after 9 recursive bisections in k near {k} = {3.108582793300152}. NIntegrate obtained 0.2943771477293631` and 3.2001493729700474` for the integral and error estimates.
+During evaluation of In[42]:= General::stop: Further output of NIntegrate::ncvb will be suppressed during this calculation.
+During evaluation of In[42]:= FindRoot::jsing: Encountered a singular Jacobian at the point {z} = {0.}. Try perturbing the initial point(s).
+During evaluation of In[42]:= FindRoot::jsing: Encountered a singular Jacobian at the point {z} = {0.}. Try perturbing the initial point(s).
+During evaluation of In[42]:= FindRoot::jsing: Encountered a singular Jacobian at the point {z} = {0.}. Try perturbing the initial point(s).
+During evaluation of In[42]:= General::stop: Further output of FindRoot::jsing will be suppressed during this calculation.
+Out[42]= {{1,0.1,0.1},{{-0.005,0.880353},{-0.01,0.87546},{-0.015,0.870413},{-0.02,0.865234},{-0.025,0.859941},{-0.03,0.854548},{-0.035,0},{-0.04,0},{-0.045,0},{-0.05,0},{-0.055,0},{-0.06,0},{-0.065,0},{-0.07,0},{-0.075,0},{-0.08,0},{-0.085,0},{-0.09,0},{-0.095,0},{-0.1,0},{0.005,0.889544},{0.01,0.89375},{0.015,0.897612},{0.02,0.901046},{0.025,0.903955},{0.03,0.906238},{0.035,0.907803},{0.04,0.908589},{0.045,0.908581},{0.05,0.907813},{0.055,0.906353},{0.06,0.904289},{0.065,0.901709},{0.07,0.898695},{0.075,0.895317},{0.08,0.891634},{0.085,0.887691},{0.09,0.883526},{0.095,0.879171},{0.1,0.874648}},{1,0.2,0.1},{{-0.005,0.76969},{-0.01,0},{-0.015,0},{-0.02,0},{-0.025,0},{-0.03,0},{-0.035,0},{-0.04,0},{-0.045,0},{-0.05,0},{-0.055,0},{-0.06,0},{-0.065,0},{-0.07,0},{-0.075,0},{-0.08,0},{-0.085,0},{-0.09,0},{-0.095,0},{-0.1,0},{0.005,0.774099},{0.01,0},{0.015,0},{0.02,0},{0.025,0},{0.03,0},{0.035,0},{0.04,0},{0.045,0},{0.05,0},{0.055,0},{0.06,0},{0.065,0},{0.07,0},{0.075,0},{0.08,0},{0.085,0},{0.09,0},{0.095,0},{0.1,0}}}
+In[38]:= Plot[NullsHolm[0.2,-0.005,0.1,z],{z,0.7,1},PlotRange->{-1,1}]
+Out[38]= 
+In[37]:= Plot[NullsHolm[0.2,-0.01,0.1,z],{z,0.7,1},PlotRange->{-1,1}]
+Out[37]= 
